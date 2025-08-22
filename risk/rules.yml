@@ -1,0 +1,31 @@
+path_weights:
+  "^src/unit_converter.py$": 5
+  "^src/.*\\.py$": 3
+  "^tests/.*\\.py$": -2
+  "^README\\.md$": 0
+
+hunk_keywords:
+  - pattern: "convert_length"
+    weight: 2
+  - pattern: "convert_weight"
+    weight: 2
+  - pattern: "raise ValueError"
+    weight: 1
+  - pattern: "TODO|FIXME"
+    weight: 2
+
+size_thresholds:
+  small: 5
+  medium: 25
+
+ai_adjustment:
+  enabled: true
+  max_delta: 2
+
+risk_bands:
+  low:    { max: 2 }
+  medium: { max: 6 }
+  high:   { max: 999 }
+
+gate_policy:
+  require_tests_on_high_risk: true

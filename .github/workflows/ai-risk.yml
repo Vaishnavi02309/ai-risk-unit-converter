@@ -1,0 +1,25 @@
+name: AI Risk Score
+on:
+  pull_request: { types: [opened, synchronize, reopened] }
+
+jobs:
+  risk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+
+      - name: Install deps
+        run: pip install pyyaml
+
+      - name: Run risk scorer (1 AI call max)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # optional; if unset, AI nudging is skipped
+        run: python risk/risk_scorer.py
