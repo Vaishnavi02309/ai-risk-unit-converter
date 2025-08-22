@@ -24,7 +24,7 @@ def convert_length(value: float, from_u: LengthUnit, to_u: LengthUnit) -> float:
     if value != value:  # NaN check
         raise ValueError("value is NaN")
     # to meters
-    meters = value / _LENGTH_TO_M[from_u]
+    meters = value * _LENGTH_TO_M[from_u]
     # to target
     return meters / _LENGTH_TO_M[to_u]
 
